@@ -23,5 +23,6 @@
     <Text Include="..\IDZ\Text.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
+    <Text Include="Text.txt" />
   </ItemGroup>
 </Project>
