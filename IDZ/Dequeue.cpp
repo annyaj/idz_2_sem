@@ -23,6 +23,7 @@ void Dequeue::push_front(const char value)
 	if (root == nullptr)
 	{
 		root = t;
+		t->next =const_cast<elem*>(tail);
 	}
 	else
 		t->next = root;
@@ -37,14 +38,16 @@ bool Dequeue::pop_back(char& value)
 		delete root;
 		root = nullptr;
 	}
-	elem* t = root;
-	while (t->next->next != tail)
-	{
-		t = t->next;
+	else {
+		elem* t = root;
+		while (t->next->next != tail)
+		{
+			t = t->next;
+		}
+		value = t->next->value;
+		delete t->next;
+		t->next = const_cast<elem*>(tail);
 	}
-	value = t->next->value;
-	delete t->next;
-	t->next = const_cast<elem*>(tail);
 	return true;
 }
 
@@ -60,14 +63,19 @@ bool Dequeue::pop_front(char& value)
 }
 
 
-bool Dequeue::isEmpty()
+
+
+bool Dequeue::isEmpty()const
 {
-	return root == tail;
+	return root == nullptr;
 }
 
 Dequeue::iterator& Dequeue::begin()
 {
-	iterator* h = new iterator(root);
+	iterator* h;
+	if(root==nullptr) h = new iterator(const_cast<elem*>(tail));
+	else
+		 h = new iterator(root);
 	return*h;
 }
 

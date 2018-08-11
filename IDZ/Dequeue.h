@@ -59,21 +59,29 @@ public:
 	}
 	Dequeue(const Dequeue& old)
 	{
+		if (old.isEmpty())
+		{
+			root = nullptr;
+			return;
+		}
+
 		root = new elem(old.root->value, nullptr);
 		elem* prev = root;
+		elem* current=nullptr;
 		for (elem* el = old.root->next; el != old.tail; el = el->next)
 		{
-			elem* current = new elem(el->value,nullptr);
+			 current= new elem(el->value,nullptr);
 			prev->next = current;
 			prev = current;
 		}
+		if(current!=nullptr)current->next = const_cast<elem*>(tail);
 		
 	}
 	void push_back(const char value);
 	void push_front(const char value);
 	bool pop_back(char& value);
 	bool pop_front(char& value);
-	bool isEmpty();
+	bool isEmpty()const;
 	iterator& begin();
 	iterator& end();
 	string toString();

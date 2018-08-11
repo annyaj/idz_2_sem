@@ -13,7 +13,6 @@ bool Invert(Dequeue& a)
 	{
 		a.pop_front(l);
 		copy.pop_back(r);
-		cout << l << "?=" << r;
 		if (l != r)flag=false;
 	}
 	return flag;
@@ -25,7 +24,7 @@ int main()
 	int choice, error = 0;
 	char elem;
 	Dequeue cur;
-	/*do
+	do
 	{
 		system("cls");
 		cout << "1. Добавить элемент в начало дека." << endl;
@@ -74,28 +73,28 @@ int main()
 			if (a == true)cout << "Yeeeee";
 			system("pause");
 		}
+		if (choice == 7)system("pause");
 		else cout << "Нельзя." << endl;
 	} while (choice != 7);
-	*/
-	cur.push_back('1');
-	cur.push_back('2');
-	/*cur.push_back('h');
-	cur.push_back('1');
-	cur.push_back('h');
-	cur.push_back('2');
-	cur.push_back('1');
-	*/
-	cur.pop_back(elem);
-	cur.pop_back(elem);
-	for (auto i = cur.begin(); i != cur.end(); ++i)
+
+	//cur.push_back('1');
+	//cur.push_back('2');
+	//cur.push_back('h');
+	//cur.push_back('1');
+	//cur.push_back('h');
+	//cur.push_back('2');
+	//cur.push_back('1');
+	
+	/*for (auto i = cur.begin(); i != cur.end(); ++i)
 	{
 		cout << *i<<" ";
 	}
 
-	/*bool a = Invert(cur);
+	bool a = Invert(cur);
 	if (a == true)cout <<"Wwwww";
 	else cout << ":(";
 	*/
+	
 
 	_getch();
 	return 0;
