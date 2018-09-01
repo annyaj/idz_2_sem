@@ -1,0 +1,6 @@
+﻿  Source.cpp
+c:\users\none\source\repos\idz\project4\source.cpp(57): warning C4101: number_of_iteration: неиспользованная локальная переменная
+c:\users\none\source\repos\idz\project4\source.cpp(56): warning C4101: code: неиспользованная локальная переменная
+c:\users\none\source\repos\idz\project4\source.cpp(55): warning C4101: namefile: неиспользованная локальная переменная
+c:\users\none\source\repos\idz\project4\source.cpp(58): warning C4101: step: неиспользованная локальная переменная
+  Project4.vcxproj -> C:\Users\none\source\repos\IDZ\Debug\Project4.exe

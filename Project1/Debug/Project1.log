@@ -1,3 +1,4 @@
 ﻿  Source.cpp
-c:\users\none\source\repos\idz\idz\source.cpp(36): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\none\source\repos\idz\idz\source.cpp(44): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\none\source\repos\idz\idz\source.cpp(134): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
   Project1.vcxproj -> C:\Users\none\source\repos\IDZ\Debug\Project1.exe
