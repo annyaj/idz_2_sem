@@ -68,8 +68,6 @@ int main()
 	while (choice != 5)
 	{
 
-		// 1 ИНТЕГРАЛ
-
 		if (choice == 1)
 		{
 			system("pause");
@@ -77,62 +75,36 @@ int main()
 			cout << endl << endl << "	Введите нижний и верхний пределы интегригования:" << endl;
 			cin >> a >> b;
 			cout << endl << endl << "	Введите число разбиений:" << endl;
-			/*cin >> number_of_segments;
-			cout << endl << endl << "	Введите точность вычислений:" << endl;
-			cin >> accuracy_of_calculation;
-			cout << endl << endl << "	Введите число итераций:" << endl;
-			cin >> number_of_iteration;
-			*/
 			f = &func1;
 			res=Integral(f,a,b);
 			cout << "Result = " << res<<endl;
 			system("pause");
 		}
 
-		// 2 ИНТЕГРАЛ
 
 		if (choice == 2)
 		{
-			/*I = 0;
-			double x(0);
-			int flag(0), k(2), i;
-			*/
+
 			system("pause");
 			system("cls");
 			cout << endl << endl << "	Введите нижний и верхний пределы интегригования:" << endl;
 			cin >> a >> b;
 			cout << endl << endl << "	Введите число разбиений:" << endl;
-			/*cin >> number_of_segments;
-			cout << endl << endl << "	Введите точность вычислений:" << endl;
-			cin >> accuracy_of_calculation;
-			cout << endl << endl << "	Введите число итераций:" << endl;
-			cin >> number_of_iteration;
-			*/
 			f = &func2;
 			res = Integral(f, a, b);
 			cout << "Result = " << res << endl;
 			system("pause");
 		}
 
-		// 1 ТЕСТ
 
 		if (choice == 3)
 		{
-			/*I = 0;
-			double x, eps, NL;
-			int flag(0), k(2), i;
-			*/
+	
 			system("pause");
 			system("cls");
 			cout << endl << endl << "	Введите нижний и верхний пределы интегригования:" << endl;
 			cin >> a >> b;
 			cout << endl << endl << "	Введите число разбиений:" << endl;
-			/*cin >> number_of_segments;
-			cout << endl << endl << "	Введите точность вычислений:" << endl;
-			cin >> accuracy_of_calculation;
-			cout << endl << endl << "	Введите число итераций:" << endl;
-			cin >> number_of_iteration;
-			*/
 			f = &test_f1;
 			res = Integral(f, a, b);
 			cout << "Result = " << res << endl;
@@ -141,25 +113,13 @@ int main()
 			system("pause");
 		}
 
-		// 2 ТЕСТ
-
 		if (choice == 4)
 		{
-			/*I = 0;
-			double x, eps, NL;
-			int flag(0), k(2), i;
-			*/
 			system("pause");
 			system("cls");
 			cout << endl << endl << "	Введите нижний и верхний пределы интегригования:" << endl;
 			cin >> a >> b;
 			cout << endl << endl << "	Введите число разбиений:" << endl;
-			/*cin >> number_of_segments;
-			cout << endl << endl << "	Введите точность вычислений:" << endl;
-			cin >> accuracy_of_calculation;
-			cout << endl << endl << "	Введите число итераций:" << endl;
-			cin >> number_of_iteration;
-			*/
 			f = &test_f2;
 			res = Integral(f, a, b);
 			cout << "Result = " << res << endl;

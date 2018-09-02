@@ -12,10 +12,7 @@ using namespace std;
 цифр в последовательности символов. Входное параметр - имя файла, выходной - средняя длина подпоследовательностей. Функция должна возвращать код завершения
 1 - если возникла ошибка чтения??, -1 - файл не открыт, 0 - все хорошо.*/
 
-
 bool even(int);
-bool five(int);
-bool prime(int);
 
 int Func(fstream& f, float& answ)
 {
@@ -27,7 +24,7 @@ int Func(fstream& f, float& answ)
 	{
 		while (!f.eof())
 		{
-			
+			if (f.fail())flag = 1;
 			f.get(sym);		
 			if ((sym == '0') || (sym == '2') || (sym == '4') || (sym == '6') || (sym == '8'))count++;
 			else
@@ -46,7 +43,7 @@ int Func(fstream& f, float& answ)
 	return flag;
 }
 
-char get_random_ch(bool(*func)(int))
+char get_random_ch(bool(*func)(int))//получаем рандомный четный символ
 {
 	int ch;
 	do {
@@ -54,7 +51,7 @@ char get_random_ch(bool(*func)(int))
 	} while (!func(ch));
 	return (char)ch;
 }
-int sum_dl_str(vector<string>& g)
+int sum_dl_str(vector<string>& g)//сумма длинн строк
 {
 	int s = g.size();
 	int count = 0;
@@ -64,7 +61,7 @@ int sum_dl_str(vector<string>& g)
 	}
 	return count;
 }
-string get_tr()
+string get_trash() //получаем строку мусора
 {
 	string s = "";
 	int a = rand() % 3 + 3;
@@ -72,21 +69,19 @@ string get_tr()
 	for (int i = 0; i < a; i++)
 	{
 		w=(char)(rand() % (90 - 65) + 65);
-		//cout << "sym=" << w;
 		s += w;
-		//cout <<"str="<< s<<endl;
 	}
 	return s;
 }
 /* Подпрограмма Generator создает файл по заданным параметрам: средней длине подследовательностей, состоящих из четных
 цифр, и их колличеству. Входные параметры - имя файла, средняя длина подпоследовательностей четных цифр, их количество. Функция возвращает код завершения
-0 - файл успешно создан, -1 - некорректные входные параметры, -2 - невозможно создать файл с заданными параметрами.*/
+0 - файл успешно создан, -1 - файл не существует(некуда записывать), -2 - некорректные параметры.*/
 int Generator(fstream& f, float length, int quantity)
 {
-	if (!f.is_open())return -1;
-	int flag = 0;
+	int flag;
+	if (!f.is_open())flag= -1;
 	float a = length * quantity;
-	if ((int)a != a) return 0;
+	if ((int)a != a) flag=-2;
 
 	string* st = new string[quantity];
 	
@@ -94,7 +89,7 @@ int Generator(fstream& f, float length, int quantity)
 	char p;
 	for (int i = 0; i < quantity; i++)
 	{
-		p = get_random_ch(prime);
+		p = get_random_ch(even);
 		string d = "";
 		d+=to_string(p);
 		str.push_back(d);
@@ -103,30 +98,23 @@ int Generator(fstream& f, float length, int quantity)
 	while ((sum_dl_str(str) / quantity) < length)
 	{
 		int d = rand() % str.size();
-		str.at(d)+=to_string(get_random_ch(prime));
+		str.at(d)+=to_string(get_random_ch(even));
 		//cout << (sum_dl_str(str) / quantity) << " " << length<<endl;
 	}
 	string result = "";
 	for (int i = 0; i < quantity; i++)
 	{
-		result += get_tr();
+		result += get_trash();
 		result += str.at(i);
-	}result += get_tr();
+	}result += get_trash();
 	f << result;
-	return 0;
+	flag= 0;
+	return flag;
 }
 
 bool even(int x)
 {
-	return x % 2 == 0;
-}
-bool five(int x)
-{
-	return x == 5;
-}
-bool prime(int x)
-{
-	return x == 1 || x == 2 || x == 3 || x == 7;
+	return x == 0 || x == 2 || x == 4 || x == 6 || x==8;
 }
 
 int main()
@@ -156,9 +144,11 @@ int main()
 			cout << "Введите количество подпоследовательностей: ";
 			cin >> quantity;
 			fstream f(name,ios::out);
-			Generator(f, av_length, quantity);
+			int res=Generator(f, av_length, quantity);
+			if (res == 0)cout << "Файл создан успешно.";
+			if (res == -1)cout << "Создайте пустой файл.";
+			if (res == -2)cout << "Некоректные параметры.";
 			f.close();
-
 		}
 		if (choice == 2)
 		{
