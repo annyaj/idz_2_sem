@@ -33,30 +33,49 @@ double test_f2(double x)
 	return f;
 }
 
-int kol = 500;
 
-double Integral(double(*f)(double), double a, double b)
+
+int Integral(double(*f)(double), double a, double b, int quant, double accuracy, double& I1)
 {
-	double sum = 0.0, x0 = a, x1;
-	double step = (b - a) / kol;
-	for (int i = 0; i < kol - 1; i++)
+	int flag = 0;
+	double I = 0, step = 0, x;
+	if (quant <= 0 || accuracy>1)flag = -1;
+	else
 	{
-		x1 = x0 + step;
-		sum += step * 0.5*(f(x0)+f(x1));
-		x0 = x1;
+		while (flag == 0)
+		{
+			step = (b - a) / quant;
+			for (x = a; x <= b; x += step)
+			{
+				I = I + 2 * (*f)(x);
+			}
+			I = step * 0.5 *(I + (*f)(a) + (*f)(b));
+			quant=quant*2;
+			step = (b - a) / quant;
+			for (x = a; x <= b; x += step)
+			{
+				I1 = I1 + 2 * (*f)(x);
+			}
+			I1 = step * 0.5 *(I1 + (*f)(a) + (*f)(b));
+			if (abs(I1 - I) <= accuracy)
+			{
+				flag = 1;
+				break;
+			}
+		}
+		
 	}
-	return sum;
+	return flag;
 }
-
 int main()
 {
 	setlocale(LC_ALL, "RUS");
 	double(*f)(double) = NULL;
 	char namefile[30];
 	char code[100];
-	int choice, number_of_iteration;
-	double step, a,b,res;
-
+	int choice = 0;
+	int quant,result=0;
+	double step, a, b, res, accuracy,I;
 	cout << "1. Первый интеграл " << endl;
 	cout << "2. Второй интеграл" << endl;
 	cout << "3. Тестовый интеграл (1)" << endl;
@@ -65,19 +84,26 @@ int main()
 	cout << "Выберите 1-5:" << endl;
 	cin >> choice;
 	system("cls");
+
+
+
 	while (choice != 5)
 	{
+		
 
 		if (choice == 1)
 		{
-			system("pause");
 			system("cls");
 			cout << endl << endl << "	Введите нижний и верхний пределы интегригования:" << endl;
 			cin >> a >> b;
 			cout << endl << endl << "	Введите число разбиений:" << endl;
+			cin >> quant;
+			cout << endl << endl << "	Введите точность разбиений:" << endl;
+			cin >> accuracy;
 			f = &func1;
-			res=Integral(f,a,b);
-			cout << "Result = " << res<<endl;
+			result=Integral(f, a, b, quant, accuracy,I);
+			if (result == -1)cout << "Uncorrect parameters!";
+			else cout << "Values of integral = " << I;
 			system("pause");
 		}
 
@@ -85,64 +111,73 @@ int main()
 		if (choice == 2)
 		{
 
-			system("pause");
 			system("cls");
 			cout << endl << endl << "	Введите нижний и верхний пределы интегригования:" << endl;
 			cin >> a >> b;
 			cout << endl << endl << "	Введите число разбиений:" << endl;
+			cin >> quant;
+			cout << endl << endl << "	Введите точность разбиений:" << endl;
+			cin >> accuracy;
 			f = &func2;
-			res = Integral(f, a, b);
-			cout << "Result = " << res << endl;
+			result = Integral(f, a, b, quant, accuracy, I);
+			if (result == -1)cout << "Uncorrect parameters!";
+			else cout << "Values of integral = " << I;
 			system("pause");
 		}
 
 
 		if (choice == 3)
 		{
-	
-			system("pause");
+
 			system("cls");
 			cout << endl << endl << "	Введите нижний и верхний пределы интегригования:" << endl;
 			cin >> a >> b;
 			cout << endl << endl << "	Введите число разбиений:" << endl;
+			cin >> quant;
+			cout << endl << endl << "	Введите точность разбиений:" << endl;
+			cin >> accuracy;
 			f = &test_f1;
-			res = Integral(f, a, b);
-			cout << "Result = " << res << endl;
-			double F_N_L=pow(b,4)/4+5*b - pow(a, 4) / 4 - 5 * a;
-			cout << "По формуле Н-Л=" << F_N_L << endl;
+			result = Integral(f, a, b, quant, accuracy, I);
+			if (result == -1)cout << "Uncorrect parameters!";
+			else cout << "Values of integral = " << I<<endl;
+			double F_N_L = pow(b, 4) / 4 + 5 * b - pow(a, 4) / 4 - 5 * a;
+			cout << "По формуле Н-Л = " << F_N_L << endl;
 			system("pause");
 		}
 
 		if (choice == 4)
 		{
-			system("pause");
 			system("cls");
 			cout << endl << endl << "	Введите нижний и верхний пределы интегригования:" << endl;
 			cin >> a >> b;
 			cout << endl << endl << "	Введите число разбиений:" << endl;
+			cin >> quant;
+			cout << endl << endl << "	Введите точность разбиений:" << endl;
+			cin >> accuracy;
 			f = &test_f2;
-			res = Integral(f, a, b);
-			cout << "Result = " << res << endl;
-			double F_N_L = 2 * (b + 1)* pow(b + 1, 0.5)/3 - 2 * (a + 1)* pow(a + 1, 0.5)/3;
+			result = Integral(f, a, b, quant, accuracy, I);
+			if (result == -1)cout << "Uncorrect parameters!";
+			else cout << "Values of integral = " << I << endl;
+			double F_N_L = 2 * (b + 1)* pow(b + 1, 0.5) / 3 - 2 * (a + 1)* pow(a + 1, 0.5) / 3;
 			cout << "По формуле Н-Л=" << F_N_L << endl;
 			system("pause");
 		}
 		system("cls");
-		cout << "1. Интеграл 1." << endl;
-		cout << "2. Интеграл 2." << endl;
-		cout << "3. Тестовый интеграл 1." << endl;
-		cout << "4. Тестовый интеграл 2." << endl;
-		cout << "5. Выход." << endl;
-		cout << "Введите пункт:" << endl;
-		cout << endl;
+		cout << "1. Первый интеграл " << endl;
+		cout << "2. Второй интеграл" << endl;
+		cout << "3. Тестовый интеграл (1)" << endl;
+		cout << "4. Тестовый интеграл (2)" << endl;
+		cout << "5. Выход" << endl;
+		cout << "Выберите 1-5:" << endl;
 		cin >> choice;
 		system("cls");
+		if (choice == 5)
+		{
+			system("cls");
+			break;
+		}
+
 	}
-	if (choice== 5)
-	{
-		system("cls");
-		cout << endl << "Всем пока:)!" << endl << endl;
-		system("pause");
-	}
+
 	return 0;
 }

@@ -97,7 +97,14 @@ string Dequeue::toString()
 	return s;
 }
 
+void Dequeue::doEmpty()
+{
+	char val = 0;
+	while (!isEmpty())pop_front(val);
+}
+
 
 Dequeue::~Dequeue()
 {
+	doEmpty();
 }

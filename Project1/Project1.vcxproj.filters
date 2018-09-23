@@ -20,9 +20,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\IDZ\Text.txt">
+    <Text Include="Text.txt" />
+    <Text Include="..\IDZ\ReadS.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
-    <Text Include="Text.txt" />
   </ItemGroup>
 </Project>

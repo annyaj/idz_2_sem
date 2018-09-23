@@ -24,7 +24,7 @@ void insertion_sort(int cols, int rows, Matrix& a)
 		sum_array[i] = sum;
 	}
 
-	int x = 0;
+	double x = 0;
 	for (int i = 0; i < rows; i++)
 	{
 		x = sum_array[i];
@@ -353,8 +353,6 @@ void Element(int rows, int cols, Matrix& a)
 					system("pause");
 					break;
 				}
-
-
 				}
 			}system("cls");
 		}

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <conio.h>
 #include "Dequeue.h"
+#include <fstream>
 
 using namespace std;
 
@@ -17,12 +18,23 @@ bool Invert(Dequeue& a)
 	}
 	return flag;
 }
+void ReadFile(fstream& f, Dequeue& a)
+{
+	char sym;
+	if (!f.is_open())return;
+	do
+	{
+		f.get(sym);
+		a.push_front(sym);
+	} while (!f.eof());
+}
 
 int main()
 {
 	setlocale(LC_ALL, "RUS");
 	int choice, error = 0;
 	char elem;
+	char name[20];
 	Dequeue cur;
 	do
 	{
@@ -33,7 +45,8 @@ int main()
 		cout << "4. Удалить последний элемент дека." << endl;
 		cout << "5. Вывести текущий дек." << endl;
 		cout << "6. Проверить, является ли слово перевертышем." << endl;
-		cout << "7.Выход" << endl;
+		cout << "7.File" << endl;
+		cout << "8.Выход" << endl;
 		cout << "Введите пункт: ";
 		cin >> choice;
 		cout << endl;
@@ -60,22 +73,32 @@ int main()
 			cur.pop_back(elem);
 			cout << "Удаляемый элемент:" << elem;
 		}
+		if (choice == 7)
+		{
+			cout <<"Input name of file";
+			cin >> name;
+			fstream file(name, ios::in);
+			ReadFile(file, cur);
+		}
 		if (choice == 5)
 		{
 			for (auto i = cur.begin(); i != cur.end(); ++i)
 			{
 				cout << *i <<" ";
 			}
+			system("pause");
 		}
 		if (choice == 6)
 		{
 			bool a=Invert(cur);
-			if (a == true)cout << "Yeeeee";
+			if (a == true)cout << "Yeeeees";
+			else cout << "Not invert";
 			system("pause");
 		}
-		if (choice == 7)system("pause");
+		
+		if (choice == 8)system("pause");
 		else cout << "Нельзя." << endl;
-	} while (choice != 7);
+	} while (choice != 8);
 
 	//cur.push_back('1');
 	//cur.push_back('2');

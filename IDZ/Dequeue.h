@@ -85,5 +85,6 @@ public:
 	iterator& begin();
 	iterator& end();
 	string toString();
+	void doEmpty();
 	~Dequeue();
 };

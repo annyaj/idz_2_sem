@@ -118,7 +118,7 @@
     <ClCompile Include="..\IDZ\Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\IDZ\Text.txt" />
+    <Text Include="..\IDZ\ReadS.txt" />
     <Text Include="Text.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

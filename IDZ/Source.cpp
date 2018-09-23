@@ -10,7 +10,7 @@ using namespace std;
 
 /* Подпрограмма Func определяет среднюю длину подпоследовательностей, состоящих из четных
 цифр в последовательности символов. Входное параметр - имя файла, выходной - средняя длина подпоследовательностей. Функция должна возвращать код завершения
-1 - если возникла ошибка чтения??, -1 - файл не открыт, 0 - все хорошо.*/
+1 - если возникла ошибка чтения, -1 - файл не открыт, 0 - все хорошо.*/
 
 bool even(int);
 
@@ -24,8 +24,8 @@ int Func(fstream& f, float& answ)
 	{
 		while (!f.eof())
 		{
-			if (f.fail())flag = 1;
-			f.get(sym);		
+			f.get(sym);
+			if (f.fail())flag = 1;		
 			if ((sym == '0') || (sym == '2') || (sym == '4') || (sym == '6') || (sym == '8'))count++;
 			else
 			{
@@ -38,7 +38,8 @@ int Func(fstream& f, float& answ)
 			}
 			flag = 0;
 		}
-		answ = sum / k;
+		if (k == 0)answ = 0;
+		else answ = sum / k;
 	}
 	return flag;
 }
@@ -79,36 +80,38 @@ string get_trash() //получаем строку мусора
 int Generator(fstream& f, float length, int quantity)
 {
 	int flag;
-	if (!f.is_open())flag= -1;
 	float a = length * quantity;
-	if ((int)a != a) flag=-2;
+	if (!f.is_open())flag= -1;
+	else if ((int)a != a || length < 0 || quantity < 0)flag = -2; 
+	else {
 
-	string* st = new string[quantity];
-	
-	vector<string> str;
-	char p;
-	for (int i = 0; i < quantity; i++)
-	{
-		p = get_random_ch(even);
-		string d = "";
-		d+=to_string(p);
-		str.push_back(d);
+		string* st = new string[quantity];
+
+		vector<string> str;
+		char p;
+		for (int i = 0; i < quantity; i++)
+		{
+			p = get_random_ch(even);
+			string d = "";
+			d += to_string(p);
+			str.push_back(d);
+		}
+		//cout << (sum_dl_str(str) / quantity) << " " << length << endl;
+		while ((sum_dl_str(str) / quantity) < length)
+		{
+			int d = rand() % str.size();
+			str.at(d) += to_string(get_random_ch(even));
+			//cout << (sum_dl_str(str) / quantity) << " " << length<<endl;
+		}
+		string result = "";
+		for (int i = 0; i < quantity; i++)
+		{
+			result += get_trash();
+			result += str.at(i);
+		}result += get_trash();
+		f << result;
+		flag = 0;
 	}
-	//cout << (sum_dl_str(str) / quantity) << " " << length << endl;
-	while ((sum_dl_str(str) / quantity) < length)
-	{
-		int d = rand() % str.size();
-		str.at(d)+=to_string(get_random_ch(even));
-		//cout << (sum_dl_str(str) / quantity) << " " << length<<endl;
-	}
-	string result = "";
-	for (int i = 0; i < quantity; i++)
-	{
-		result += get_trash();
-		result += str.at(i);
-	}result += get_trash();
-	f << result;
-	flag= 0;
 	return flag;
 }
 
