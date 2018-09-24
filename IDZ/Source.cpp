@@ -22,7 +22,7 @@ int Func(fstream& f, float& answ)
 	if (!f.is_open())flag=-1;
 	else
 	{
-		while (!f.eof())
+		while (!f.eof() || flag==1)
 		{
 			f.get(sym);
 			if (f.fail())flag = 1;		

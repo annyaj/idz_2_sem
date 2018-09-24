@@ -180,7 +180,7 @@ void Element(int rows, int cols, Matrix& a)
 			do {
 
 				cout << "На какой элемент хотите поменять?\n";
-				//kod = (scanf_s("%d", &chislo));
+	
 				cin >> chislo;
 				if (cin.fail()) {
 					system("cls");
